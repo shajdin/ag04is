@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -27,9 +30,11 @@ public class SequenceServiceImpl implements SequenceService{
 	}
 
 	@Override
-	public Map<String, Object> addNewSequence(Sequence sequence) {
+	public Map<String, Object> addNewSequence(SequenceDTO sequence) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("success", false);
 		
 		if(findNextSequenceNumber() > sequence.getId()){
 			map.put("error", "Sequence value has already been taken!");
@@ -39,10 +44,12 @@ public class SequenceServiceImpl implements SequenceService{
 		}
 		User currentUser = CurrentUser.getUser();
 		Assert.notNull(currentUser);
+		if(!currentUser.getUsername().equals(sequence.getUser())){
+			throw new AuthorizationServiceException("Not authorised");
+		}
 		
-		sequence.setCreated(new Date());
-		sequence.setUser(currentUser);		
-		saveSequence(sequence);
+		Sequence newSequence = new Sequence(sequence.getId(), new Date(), sequence.getPurpose(), currentUser);		
+		saveSequence(newSequence);
 		map.put("sequence", sequence);
 		map.put("success", true);
 		return map;
@@ -81,8 +88,40 @@ public class SequenceServiceImpl implements SequenceService{
 	}
 
 	@Override
-	public List<SequenceDTO> findSequences() {
-		return sequenceRepository.findSequences();
+	public Page<Sequence> findSequences(PageRequest pageReq, String search) {
+		Page<Sequence> page = null;
+		if(search == null){
+			page =  sequenceRepository.findAll(pageReq);
+		}
+		else{
+			Long id = null;
+			try{
+				id = Long.valueOf(search);
+			}
+			catch(NumberFormatException e){}
+			
+			if(id != null){
+				page = sequenceRepository.findByIdOrPurposeContainsOrUserUsernameContains(id, search, search, pageReq);
+			}
+			else{
+				page = sequenceRepository.findByPurposeContainsOrUserUsernameContains(search, search, pageReq);
+			}
+			
+		}
+		return page;
+	}
+
+	@Override
+	public SequenceDTO findSequenceDTOById(long id) {
+		return sequenceRepository.findSequenceById(id);
+	}
+
+	@Override
+	public SequenceDTO createNew() {
+		SequenceDTO dto = new SequenceDTO();
+		dto.setId(findNextSequenceNumber());
+		dto.setUser(CurrentUser.getUser().getUsername());
+		return dto;
 	}
 
 }

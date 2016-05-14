@@ -7,6 +7,16 @@
 </head>
 <body>
 
+	<script>
+	    function rowClicked(value) {
+	        location.href = "/sequences/" + value;
+	    }
+	    
+	    function searchClicked() {
+	        location.href = "/home?search=" + document.getElementById("searchText").value;
+	    }
+	</script>
+
 	<div>
 		Logged in user: <b th:inline="text">
 			[[${#httpServletRequest.remoteUser}]] </b>
@@ -23,6 +33,16 @@
 		th:hidden="true">
 		<input type="submit" value="Sign Out" />
 	</form>
+	
+	<form th:action="@{/sequence/claim}" method="get">
+		<div><input type="submit" value="Claim new"/></div>
+    </form>
+    
+    <div>
+    <label> Search : <input type="text" id="searchText"/> </label>
+	<div><input type="submit" 
+		th:onclick="'javascript:searchClicked();'" value="Go"/></div>
+    </div>
 
 	<div>
 		<table class="table">
@@ -35,16 +55,41 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="sequence : ${sequences}">
-					<td><a th:href="@{'/sequences/' + ${sequence.id}}">
-					<span th:text="${sequence.id}"></span></a></td>
-					<td th:text="${sequence.user}"></td>
+				<tr th:each="sequence : ${page.content}" style="cursor: pointer"
+     				th:onclick="'javascript:rowClicked(\'' + ${sequence.id} + '\');'">
+					<td>
+<!-- 					<a th:href="@{'/sequences/' + ${sequence.id}}"> -->
+					<span th:text="${sequence.id}"></span>
+<!-- 					</a> -->
+					</td>
+					<td th:text="${sequence.user.username}"></td>
 					<td th:text="${sequence.purpose}"></td>
-					<td th:text="${sequence.date}"></td>
+					<td th:text="${sequence.created}"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	
+	<div th:fragment='paginationbar'>
+  <div class='pagination pagination-centered'>
+    <div>
+      
+      
+        <span th:if='${not page.hasPrevious()}'>«</span>
+        <a th:if='${page.hasPrevious()}' th:href="@{'/home?page=' + ${page.number - 1} + '&amp;pageSize=' + ${page.size} + ${search}}" title='Go to previous page'>«</a>
+      
+      
+      
+        <span th:if='${not page.hasNext()}'>»</span>
+        <a th:if='${page.hasNext()}' th:href="@{'/home?page=' + ${page.number + 1} + '&amp;pageSize=' + ${page.size} + ${search}}" title='Go to next page'>»</a>
+      
+      <div th:text="${(page.number + 1)  + ' / ' +  page.totalPages}">Page</div>
+      
+      
+      
+    </div>
+  </div>
+</div>
 
 
 </body>

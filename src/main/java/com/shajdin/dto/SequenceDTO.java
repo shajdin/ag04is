@@ -1,9 +1,16 @@
 package com.shajdin.dto;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class SequenceDTO {
+public class SequenceDTO  implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private Long id;
 	private String user;

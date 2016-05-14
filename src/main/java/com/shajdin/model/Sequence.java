@@ -37,6 +37,14 @@ public class Sequence implements Serializable {
 		this.purpose = purpose;
 		this.user = user;
 	}
+	
+
+	public Sequence(Long id, Date created, String purpose, User user) {
+		this.id = id;
+		this.created = created;
+		this.purpose = purpose;
+		this.user = user;
+	}
 
 	public void setId(Long id) {
 		this.id = id;

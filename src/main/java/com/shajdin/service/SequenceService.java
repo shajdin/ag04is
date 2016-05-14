@@ -3,6 +3,9 @@ package com.shajdin.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import com.shajdin.dto.SequenceDTO;
 import com.shajdin.model.Sequence;
 import com.shajdin.model.User;
@@ -11,7 +14,7 @@ public interface SequenceService {
 	
 	public List<Sequence> getAllSequence();
 	
-	public Map<String, Object> addNewSequence(Sequence sequence);
+	public Map<String, Object> addNewSequence(SequenceDTO sequence);
 	
 	public Sequence findSequenceById(Long id);
 	
@@ -25,6 +28,10 @@ public interface SequenceService {
 	
 	public void saveSequence(Sequence sequence);
 	
-	public List<SequenceDTO> findSequences();
+	public Page<Sequence> findSequences(PageRequest pageReq, String search);
+	
+	public SequenceDTO findSequenceDTOById(long id);
+	
+	public SequenceDTO createNew();
 
 }

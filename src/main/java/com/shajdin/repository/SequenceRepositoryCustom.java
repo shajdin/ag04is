@@ -9,4 +9,6 @@ public interface SequenceRepositoryCustom {
 	public Long findMaxSequenceNumber();
 	
 	public List<SequenceDTO> findSequences();
+	
+	public SequenceDTO findSequenceById(long id);
 }
