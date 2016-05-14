@@ -1,6 +1,7 @@
 package com.shajdin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.shajdin.dto.SequenceDTO;
 import com.shajdin.model.Sequence;
@@ -10,7 +11,7 @@ public interface SequenceService {
 	
 	public List<Sequence> getAllSequence();
 	
-	public boolean addNewSequence(Sequence sequence);
+	public Map<String, Object> addNewSequence(Sequence sequence);
 	
 	public Sequence findSequenceById(Long id);
 	

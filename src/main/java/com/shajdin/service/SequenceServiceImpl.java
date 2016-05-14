@@ -1,7 +1,9 @@
 package com.shajdin.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +27,15 @@ public class SequenceServiceImpl implements SequenceService{
 	}
 
 	@Override
-	public boolean addNewSequence(Sequence sequence) {
+	public Map<String, Object> addNewSequence(Sequence sequence) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if(findNextSequenceNumber() > sequence.getId()){
-			return false;
+			map.put("error", "Sequence value has already been taken!");
+			sequence.setId(findNextSequenceNumber());
+			map.put("sequence", sequence);
+			return map;
 		}
 		User currentUser = CurrentUser.getUser();
 		Assert.notNull(currentUser);
@@ -36,7 +43,9 @@ public class SequenceServiceImpl implements SequenceService{
 		sequence.setCreated(new Date());
 		sequence.setUser(currentUser);		
 		saveSequence(sequence);
-		return true;
+		map.put("sequence", sequence);
+		map.put("success", true);
+		return map;
 	}
 
 	@Override
