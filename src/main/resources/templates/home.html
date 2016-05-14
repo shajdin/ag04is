@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+
+	<div>
+		Logged in user: <b th:inline="text">
+			[[${#httpServletRequest.remoteUser}]] </b>
+	</div>
+
+	<div>
+		Logged user: <span sec:authentication="name"></span>
+	</div>
+
+	<a href="javascript: document.logoutForm.submit()" role="menuitem">
+		Logout</a>
+
+	<form name="logoutForm" th:action="@{/logout}" method="post"
+		th:hidden="true">
+		<input type="submit" value="Sign Out" />
+	</form>
+
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Sequence</th>
+					<th>User</th>
+					<th>Purpose</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="sequence : ${sequences}">
+					<td><a th:href="@{'/sequences/' + ${sequence.id}}">
+					<span th:text="${sequence.id}"></span></a></td>
+					<td th:text="${sequence.user}"></td>
+					<td th:text="${sequence.purpose}"></td>
+					<td th:text="${sequence.date}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+</body>
+</html>
