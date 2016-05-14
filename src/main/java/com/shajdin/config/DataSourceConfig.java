@@ -11,13 +11,12 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 public class DataSourceConfig {
 	
 	@Bean
-	@Profile("!heroku")
 	public DataSource devDataSource(){
 		return new EmbeddedDatabaseBuilder().build();
 	}
 	
 //	@Bean
-//	@Profile("heroku")
+//	@Profile("")
 //	public DataSource dataSource(){
 //		//TODO
 //		return new EmbeddedDatabaseBuilder().build();
