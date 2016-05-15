@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth
-		.userDetailsService(new CustomUserDetailsService(userService));
+		.userDetailsService(new CustomUserDetailsService(userService)).passwordEncoder(passwordEncoder());
 //			.inMemoryAuthentication()
 ////				.passwordEncoder(passwordEncoder())
 //				.withUser("ivo").password("pivo").roles("USER").and()

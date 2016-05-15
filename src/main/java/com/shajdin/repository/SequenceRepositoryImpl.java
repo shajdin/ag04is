@@ -15,8 +15,8 @@ import com.shajdin.dto.SequenceDTO;
 public class SequenceRepositoryImpl implements SequenceRepositoryCustom {
 
 	private final String maxSeqNumSql = "select max(s.id) from Sequence s";
-	private final String findSequencesSql = "select s.id as id, u.username as user, s.purpose as purpose, s.created as date from Sequence s inner join User u on s.USER_ID=u.id";
-	private final String findSequenceByIdSql = "select s.id as id, u.username as user, s.purpose as purpose, s.created as date from Sequence s inner join User u on s.USER_ID=u.id where s.id = ?";
+	private final String findSequencesSql = "select s.id as id, u.username as user, s.purpose as purpose, s.created as date from Sequence s, User u where s.USER_ID=u.id";
+	private final String findSequenceByIdSql = "select s.id as id, u.username as user, s.purpose as purpose, s.created as date from Sequence s, User u where s.USER_ID=u.id and s.id = ?";
 
 	@Autowired
 	private JdbcOperations jdbcOperations;
