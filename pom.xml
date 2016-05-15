@@ -60,6 +60,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
   			<artifactId>postgresql</artifactId>
+  			<version>9.4-1201-jdbc4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -69,6 +70,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
 		</dependency>
 	</dependencies>
 

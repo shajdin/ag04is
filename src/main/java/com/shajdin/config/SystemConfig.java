@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,6 +50,7 @@ public class SystemConfig {
 	}
 	
 	@Bean
+	@Profile("!heroku")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
 		
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
