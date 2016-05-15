@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+>
+<!-- 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" -->
+<head>
+<title>Spring Security Example</title>
+<meta charset="utf-8"/>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-2" />
+</head>
+<body>
+
+	<div>
+		Logged in user: <b th:inline="text">
+			[[${#httpServletRequest.remoteUser}]] </b>
+	</div>
+
+<!-- 	<div> -->
+<!-- 		Logged user: <span sec:authentication="name"></span> -->
+<!-- 	</div> -->
+<!-- 	<div> -->
+<!-- 		Roles: <span sec:authentication="principal.user.id">[ROLE_USER, -->
+<!-- 			ROLE_ADMIN]</span> -->
+<!-- 	</div> -->
+
+
+	<a href="javascript: document.logoutForm.submit()" role="menuitem">
+		Logout</a>
+
+	<form name="logoutForm" th:action="@{/logout}" method="post"
+		th:hidden="true">
+		<input type="submit" value="Sign Out" />
+	</form>
+
+	<div>
+		
+		<div th:if="${error != null}">
+		   <div th:text="${error}">Error</div>
+		</div>
+		
+		<div th:if="${error == null}">
+		   <div>Error is null</div>
+		</div>
+
+		<form th:action="@{/sequences}" 
+			th:object="${sequence}" th:method="post">
+
+			<div>
+			<label for="id">Sequence:</label> 
+			<input type="text" th:field="*{id}" id="id" th:readonly="readonly"/>
+			</div>
+			
+			<div>
+			<label for="user">By user:</label> 
+			<input type="text" th:field="*{user}" id="user" th:readonly="readonly"/>
+			</div>
+
+			<div>
+			<label for="purpose">Purpose:</label> 
+			<input type="text" th:disabled="false" th:field="*{purpose}" id="purpose" />
+			</div>
+
+			<div><input type="submit" value="Create"/></div>
+
+
+		</form>
+		
+		<form th:action="@{/home}" method="get">
+            <div><input type="submit" value="Cancel"/></div>
+        </form>
+
+	</div>
+
+
+</body>
+</html>

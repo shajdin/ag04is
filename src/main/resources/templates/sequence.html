@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+
+	<div>
+		Logged in user: <b th:inline="text">
+			[[${#httpServletRequest.remoteUser}]] </b>
+	</div>
+
+	<div>
+		Logged user: <span sec:authentication="name"></span>
+	</div>
+	<div>
+		Roles: <span sec:authentication="principal.user.id">[ROLE_USER,
+			ROLE_ADMIN]</span>
+	</div>
+
+
+	<a href="javascript: document.logoutForm.submit()" role="menuitem">
+		Logout</a>
+
+	<form name="logoutForm" th:action="@{/logout}" method="post"
+		th:hidden="true">
+		<input type="submit" value="Sign Out" />
+	</form>
+
+	<div>
+
+		<form action="/" th:action="@{/admin/save_user}"
+			th:object="${sequence}" th:method="put"	role="form">
+
+			<div>
+			<label for="seqId">Sequence:</label> 
+			<input type="text" th:disabled="true" th:field="*{id}" id="seqId" />
+			</div>
+			
+			<div>
+			<label for="byUser">By user:</label> 
+			<input type="text" th:disabled="true" th:field="*{user}" id="byUser" />
+			</div>
+
+			<div>
+			<label for="purpose">Purpose:</label> 
+			<input type="text" th:disabled="true" th:field="*{purpose}" id="purpose" />
+			</div>
+			
+			<div>
+			<label for="created">Created:</label> 
+			<input type="text" th:disabled="true" th:field="*{date}" id="created" />
+			</div>
+			
+			
+			
+
+
+<!-- 			<button type="submit" >Submit</button> -->
+<!-- 			<button><a th:href="@{/sequences}"><span>KK</span></a></button> -->
+<!-- 			<button type="submit" th:href="@{/sequences}" >OK</button> -->
+			
+			
+
+		</form>
+		
+		<form th:action="@{/sequences}" method="get">
+            <div><input type="submit" value="OK"/></div>
+        </form>
+
+	</div>
+
+
+</body>
+</html>
