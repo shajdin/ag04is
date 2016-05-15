@@ -75,6 +75,7 @@ public class HerokuConfig {
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
+        basicDataSource.setConnectionProperties("ssl=true;sslfactory=org.postgresql.ssl.NonValidatingFactory");
 
         return basicDataSource;
     }
