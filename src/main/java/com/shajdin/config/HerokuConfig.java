@@ -31,54 +31,54 @@ public class HerokuConfig {
 //        return basicDataSource;
 //    }
 	
-//	@Bean
-//	public DataSource dataSource() {
-//		String databaseUrl = System.getenv("DATABASE_URL");
-//
-//		URI dbUri;
-//		try {
-//			dbUri = new URI(databaseUrl);
-//		} catch (URISyntaxException e) {
-//			return null;
-//		}
-//
-//		String username = dbUri.getUserInfo().split(":")[0];
-//		String password = dbUri.getUserInfo().split(":")[1];
-//		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-//
-//		org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource();
-//		dataSource.setDriverClassName("org.postgresql.Driver");
-//		dataSource.setUrl(dbUrl);
-//		dataSource.setUsername(username);
-//		dataSource.setPassword(password);
-//		dataSource.setTestOnBorrow(true);
-//		dataSource.setTestWhileIdle(true);
-//		dataSource.setTestOnReturn(true);
-//		dataSource.setMaxActive(10);
-//		dataSource.setMaxIdle(5);
-//		dataSource.setMinIdle(2);
-//		dataSource.setInitialSize(5);
-//		dataSource.setRemoveAbandoned(true);
-//		dataSource.setValidationQuery("SELECT 1");
-//		return dataSource;
-//	}
-	
 	@Bean
-    public BasicDataSource dataSource() throws URISyntaxException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
+	public DataSource dataSource() {
+		String databaseUrl = System.getenv("DATABASE_URL");
 
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+		URI dbUri;
+		try {
+			dbUri = new URI(databaseUrl);
+		} catch (URISyntaxException e) {
+			return null;
+		}
 
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-        //basicDataSource.setConnectionProperties("ssl=true;sslfactory=org.postgresql.ssl.NonValidatingFactory");
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
-        return basicDataSource;
-    }
+		org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource();
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl(dbUrl);
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
+		dataSource.setTestOnBorrow(true);
+		dataSource.setTestWhileIdle(true);
+		dataSource.setTestOnReturn(true);
+		dataSource.setMaxActive(10);
+		dataSource.setMaxIdle(5);
+		dataSource.setMinIdle(2);
+		dataSource.setInitialSize(5);
+		dataSource.setRemoveAbandoned(true);
+		//dataSource.setValidationQuery("SELECT 1");
+		return dataSource;
+	}
+	
+//	@Bean
+//    public BasicDataSource dataSource() throws URISyntaxException {
+//        URI dbUri = new URI(System.getenv("DATABASE_URL"));
+//
+//        String username = dbUri.getUserInfo().split(":")[0];
+//        String password = dbUri.getUserInfo().split(":")[1];
+//        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+//
+//        BasicDataSource basicDataSource = new BasicDataSource();
+//        basicDataSource.setUrl(dbUrl);
+//        basicDataSource.setUsername(username);
+//        basicDataSource.setPassword(password);
+//        //basicDataSource.setConnectionProperties("ssl=true;sslfactory=org.postgresql.ssl.NonValidatingFactory");
+//
+//        return basicDataSource;
+//    }
 	
 //	@Bean
 //	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException{
