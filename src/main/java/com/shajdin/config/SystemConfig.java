@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ import com.shajdin.service.UserServiceImpl;
 @EnableJpaRepositories(basePackages={"com.shajdin.repository"})
 @EnableTransactionManagement
 @ComponentScan(basePackages={"com.shajdin.conntroller"})
+@EntityScan(basePackages={"com.shajdin.model"})
 public class SystemConfig {
 	
 	@Autowired

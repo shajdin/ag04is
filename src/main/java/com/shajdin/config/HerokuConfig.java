@@ -80,25 +80,25 @@ public class HerokuConfig {
         return basicDataSource;
     }
 	
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException{
-		
-		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setShowSql(false);
-		adapter.setGenerateDdl(true);
-		adapter.setDatabase(Database.POSTGRESQL);
-
-//		Properties props = new Properties();
-//		props.setProperty("hibernate.format_sql", "true");
-		
-		LocalContainerEntityManagerFactoryBean emfb = 
-			new LocalContainerEntityManagerFactoryBean();
-		emfb.setDataSource(dataSource());
-		emfb.setPackagesToScan("com.shajdin.model");
-//		emfb.setJpaProperties(props);
-		emfb.setJpaVendorAdapter(adapter);
-		
-		return emfb;
-	}
+//	@Bean
+//	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException{
+//		
+//		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+//		adapter.setShowSql(false);
+//		adapter.setGenerateDdl(true);
+//		adapter.setDatabase(Database.POSTGRESQL);
+//
+////		Properties props = new Properties();
+////		props.setProperty("hibernate.format_sql", "true");
+//		
+//		LocalContainerEntityManagerFactoryBean emfb = 
+//			new LocalContainerEntityManagerFactoryBean();
+//		emfb.setDataSource(dataSource());
+//		emfb.setPackagesToScan("com.shajdin.model");
+////		emfb.setJpaProperties(props);
+//		emfb.setJpaVendorAdapter(adapter);
+//		
+//		return emfb;
+//	}
 
 }
