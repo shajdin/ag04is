@@ -27,8 +27,8 @@ public class Ag04IsApplication implements CommandLineRunner{
 	
 	@Override
     public void run(String... strings) throws Exception {
-		User u1 = new User("a", "b");
-		User u2 = new User("a2", "b2");
+		User u1 = new User("username", "password");
+		User u2 = new User("user", "pass");
 		
 		User ivo = new User("ivo", "pivo");
 		
@@ -38,13 +38,13 @@ public class Ag04IsApplication implements CommandLineRunner{
 		
 		
 		for(int i = 0; i < 50 ; ++i){
-			Sequence s1 = new Sequence(new Date(), "tekstA" + i, u1);
+			Sequence s1 = new Sequence(new Date(), "tekst A" + i, u1);
 			s1.setId(sequenceService.findNextSequenceNumber());
 			sequenceService.saveSequence(s1);
-			Sequence s2 = new Sequence(new Date(), "tekstB" + i, u2);
+			Sequence s2 = new Sequence(new Date(), "tekst B" + i, u2);
 			s2.setId(sequenceService.findNextSequenceNumber());
 			sequenceService.saveSequence(s2);
-			Sequence s3 = new Sequence(new Date(), "tekstC" + i, ivo);
+			Sequence s3 = new Sequence(new Date(), "tekst C" + i, ivo);
 			s3.setId(sequenceService.findNextSequenceNumber());
 			sequenceService.saveSequence(s3);
 		}
