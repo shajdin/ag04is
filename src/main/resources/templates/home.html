@@ -4,6 +4,11 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <title>Spring Security Example</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+		
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+		
 </head>
 <body>
 
@@ -16,36 +21,49 @@
 	        location.href = "/home?search=" + document.getElementById("searchText").value;
 	    }
 	</script>
-
-	<div>
-		Logged in user: <b th:inline="text">
-			[[${#httpServletRequest.remoteUser}]] </b>
-	</div>
-
-	<div>
-		Logged user: <span sec:authentication="name"></span>
-	</div>
-
-	<a href="javascript: document.logoutForm.submit()" role="menuitem">
-		Logout</a>
-
-	<form name="logoutForm" th:action="@{/logout}" method="post"
-		th:hidden="true">
-		<input type="submit" value="Sign Out" />
-	</form>
 	
-	<form th:action="@{/sequence/claim}" method="get">
-		<div><input type="submit" value="Claim new"/></div>
-    </form>
+	<div>
+	
+	<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/home">Sequence</a>
+        </div>
+        
+		<form name="logoutForm" th:action="@{/logout}" method="post"
+			th:hidden="false">
+			<input type="submit" class="btn pull-right navbar-btn" value="Sign Out" />
+		</form>
+		
+		<div class="pull-right">
+			<span class="navbar-text" sec:authentication="name"></span>
+		</div>
+		
+<!-- 		<a href="javascript: document.logoutForm.submit()" role="menuitem"> -->
+<!-- 		Logout</a> -->
+    </div>
+</nav>
+
+<!-- 	<div> -->
+<!-- 		Logged in user: <b th:inline="text"> -->
+<!-- 			[[${#httpServletRequest.remoteUser}]] </b> -->
+<!-- 	</div> -->
+	
+	<div class="col-md-8 col-md-offset-2" >
+		<form th:action="@{/sequence/claim}" method="get">
+			<div><input type="submit" class="btn pull-left" value="Claim new"/></div>
+	    </form>
+	    
+	    <div class="pull-right">
+	    <label> Search : <input type="text" id="searchText"/> </label>
+		<input type="submit" class="btn"
+			th:onclick="'javascript:searchClicked();'" value="Go"/>
+	    </div>
     
-    <div>
-    <label> Search : <input type="text" id="searchText"/> </label>
-	<div><input type="submit" 
-		th:onclick="'javascript:searchClicked();'" value="Go"/></div>
     </div>
 
-	<div>
-		<table class="table">
+	<div class="content col-md-8 col-md-offset-2" >
+		<table class="table table-bordered" style="padding-top: 10px; margin-top:5px;">
 			<thead>
 				<tr>
 					<th>Sequence</th>
@@ -70,27 +88,29 @@
 		</table>
 	</div>
 	
-	<div th:fragment='paginationbar'>
-  <div class='pagination pagination-centered'>
-    <div>
-      
-      
-        <span th:if='${not page.hasPrevious()}'>«</span>
-        <a th:if='${page.hasPrevious()}' th:href="@{'/home?page=' + ${page.number - 1} + '&amp;pageSize=' + ${page.size} + ${search}}" title='Go to previous page'>«</a>
-      
-      
-      
-        <span th:if='${not page.hasNext()}'>»</span>
-        <a th:if='${page.hasNext()}' th:href="@{'/home?page=' + ${page.number + 1} + '&amp;pageSize=' + ${page.size} + ${search}}" title='Go to next page'>»</a>
-      
-      <div th:text="${(page.number + 1)  + ' / ' +  page.totalPages}">Page</div>
-      
-      
-      
-    </div>
-  </div>
-</div>
 
+  <div class="col-md-8 col-md-offset-2">
+  
+    	<div class="pull-left">
+      		<span class="badge" th:text="${'Page ' + (page.number + 1)  + ' / ' +  page.totalPages}">Page</span>
+		</div>
+		<div class="pull-right">
+		<nav>
+			<ul class="pagination">
+				<li th:class="${not page.hasPrevious()} ? 'disabled' : ''">
+		     		<span th:if="${not page.hasPrevious()}">«</span>
+		    		<a th:if="${page.hasPrevious()}" th:href="@{'/home?page=' + ${page.number - 1} + '&amp;pageSize=' + ${page.size} + ${search}}" title="Go to previous page">«</a>
+				</li>
+				<li th:class="${not page.hasNext()} ? 'disabled' : ''">
+		     		<span th:if="${not page.hasNext()}">»</span>
+		   			<a th:if="${page.hasNext()}" th:href="@{'/home?page=' + ${page.number + 1} + '&amp;pageSize=' + ${page.size} + ${search}}" title="Go to next page">»</a>
+	      		</li>
+      		</ul>
+      	</nav>
+<!--       <div th:text="${(page.number + 1)  + ' / ' +  page.totalPages}">Page</div> -->
+    </div>
+</div>
+</div>
 
 </body>
 </html>

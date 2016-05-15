@@ -41,7 +41,7 @@ public class WebController {
 	private SequenceService sequenceService;
 	
 	private static final int defaultPage = 0;
-	private static final int defaultPageSize = 15;
+	private static final int defaultPageSize = 10;
 		
 	@RequestMapping("/")
 	public String hello(){
@@ -51,7 +51,7 @@ public class WebController {
 	@RequestMapping("/home")
 	public ModelAndView home(@RequestParam(name="search", required=false) String search,
 			@RequestParam(name="page", required=false, defaultValue="0") int pageNum, 
-			@RequestParam(name="pageSize", required=false, defaultValue="15") int pageSize){
+			@RequestParam(name="pageSize", required=false, defaultValue="10") int pageSize){
 		ModelAndView model = new ModelAndView("home");
 		PageRequest pageReq = new PageRequest(pageNum, pageSize, Direction.ASC, "id"); 
 		//List<SequenceDTO> sequences = sequenceService.findSequences(pageReq, search);
