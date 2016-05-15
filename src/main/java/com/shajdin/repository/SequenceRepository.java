@@ -13,7 +13,7 @@ public interface SequenceRepository extends JpaRepository<Sequence, Long>, Seque
 	
 	public List<Sequence> findByPurposeContains(String purpose);
 	
-	public Page<Sequence> findByPurposeContainsOrUserUsernameContains(String purpose, String username, Pageable pageRequest);
-	public Page<Sequence> findByIdOrPurposeContainsOrUserUsernameContains(Long id, String purpose, String username, Pageable pageRequest);
+	public Page<Sequence> findByPurposeContainsIgnoreCaseOrUserUsernameContainsIgnoreCase(String purpose, String username, Pageable pageRequest);
+	public Page<Sequence> findByIdOrPurposeContainsIgnoreCaseOrUserUsernameContainsIgnoreCase(Long id, String purpose, String username, Pageable pageRequest);
 
 }

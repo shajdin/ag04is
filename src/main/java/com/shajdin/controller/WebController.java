@@ -3,7 +3,6 @@ package com.shajdin.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.annotations.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.http.HttpStatus;
 
 import com.shajdin.dto.SequenceDTO;
@@ -54,7 +52,6 @@ public class WebController {
 			@RequestParam(name="pageSize", required=false, defaultValue="10") int pageSize){
 		ModelAndView model = new ModelAndView("home");
 		PageRequest pageReq = new PageRequest(pageNum, pageSize, Direction.ASC, "id"); 
-		//List<SequenceDTO> sequences = sequenceService.findSequences(pageReq, search);
 		Page<Sequence> page = sequenceService.findSequences(pageReq, search);
 		model.addObject("page", page);
 		if(search == null){

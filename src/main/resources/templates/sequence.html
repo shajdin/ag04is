@@ -3,73 +3,65 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<title>Spring Security Example</title>
+	<title>Sequence</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 	<div>
-		Logged in user: <b th:inline="text">
-			[[${#httpServletRequest.remoteUser}]] </b>
-	</div>
+		<nav class="navbar navbar-default">
+		    <div class="container-fluid">
+		        <div class="navbar-header">
+		            <a class="navbar-brand" href="/home">Sequence</a>
+		        </div>
+				<form name="logoutForm" th:action="@{/logout}" method="post"
+					th:hidden="false">
+					<input type="submit" class="btn pull-right navbar-btn" value="Sign Out" />
+				</form>
+				
+				<div class="pull-right">
+					<span class="navbar-text" sec:authentication="name"></span>
+				</div>
+		    </div>
+		</nav>
+	
 
-	<div>
-		Logged user: <span sec:authentication="name"></span>
-	</div>
-	<div>
-		Roles: <span sec:authentication="principal.user.id">[ROLE_USER,
-			ROLE_ADMIN]</span>
-	</div>
-
-
-	<a href="javascript: document.logoutForm.submit()" role="menuitem">
-		Logout</a>
-
-	<form name="logoutForm" th:action="@{/logout}" method="post"
-		th:hidden="true">
-		<input type="submit" value="Sign Out" />
-	</form>
-
-	<div>
-
-		<form action="/" th:action="@{/admin/save_user}"
-			th:object="${sequence}" th:method="put"	role="form">
-
+		<div class="col-md-4 col-md-offset-4">
 			<div>
-			<label for="seqId">Sequence:</label> 
-			<input type="text" th:disabled="true" th:field="*{id}" id="seqId" />
-			</div>
-			
-			<div>
-			<label for="byUser">By user:</label> 
-			<input type="text" th:disabled="true" th:field="*{user}" id="byUser" />
-			</div>
-
-			<div>
-			<label for="purpose">Purpose:</label> 
-			<input type="text" th:disabled="true" th:field="*{purpose}" id="purpose" />
-			</div>
-			
-			<div>
-			<label for="created">Created:</label> 
-			<input type="text" th:disabled="true" th:field="*{date}" id="created" />
-			</div>
-			
-			
-			
-
-
-<!-- 			<button type="submit" >Submit</button> -->
-<!-- 			<button><a th:href="@{/sequences}"><span>KK</span></a></button> -->
-<!-- 			<button type="submit" th:href="@{/sequences}" >OK</button> -->
-			
-			
-
-		</form>
+				<form th:object="${sequence}" th:method="put" role="form">
+					
+					<div>
+						<label for="seqId">Sequence:</label> 
+						<input type="text" readonly="readonly" class="form-control" th:field="*{id}" id="seqId" />
+					</div>
+					
+					<div>
+						<label for="byUser">By user:</label> 
+						<input type="text" readonly="readonly" class="form-control" th:field="*{user}" id="byUser" />
+					</div>
 		
-		<form th:action="@{/sequences}" method="get">
-            <div><input type="submit" value="OK"/></div>
-        </form>
-
+					<div>
+						<label for="purpose">Purpose:</label> 
+						<input type="text" readonly="readonly" class="form-control" th:field="*{purpose}" id="purpose" />
+					</div>
+					
+					<div>
+						<label for="created">Created:</label> 
+						<input type="text" readonly="readonly" class="form-control" th:field="*{date}" id="created" />
+					</div>
+				</form>
+			</div>
+			
+			<div style="padding-top: 10px; margin-top:5px;">
+				<form th:action="@{/home}" method="get">
+		            <div><input type="submit" class="btn btn-default pull-right" value="OK"/></div>
+		        </form>
+	        </div>
+	
+		</div>
+	
 	</div>
 
 

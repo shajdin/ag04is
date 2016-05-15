@@ -3,7 +3,6 @@ package com.shajdin.security;
 import java.util.List;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.shajdin.model.User;
 

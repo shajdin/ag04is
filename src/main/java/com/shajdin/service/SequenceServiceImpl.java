@@ -101,10 +101,10 @@ public class SequenceServiceImpl implements SequenceService{
 			catch(NumberFormatException e){}
 			
 			if(id != null){
-				page = sequenceRepository.findByIdOrPurposeContainsOrUserUsernameContains(id, search, search, pageReq);
+				page = sequenceRepository.findByIdOrPurposeContainsIgnoreCaseOrUserUsernameContainsIgnoreCase(id, search, search, pageReq);
 			}
 			else{
-				page = sequenceRepository.findByPurposeContainsOrUserUsernameContains(search, search, pageReq);
+				page = sequenceRepository.findByPurposeContainsIgnoreCaseOrUserUsernameContainsIgnoreCase(search, search, pageReq);
 			}
 			
 		}
