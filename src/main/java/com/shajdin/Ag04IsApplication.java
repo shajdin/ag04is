@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.shajdin.model.Sequence;
 import com.shajdin.model.User;
@@ -24,17 +23,14 @@ public class Ag04IsApplication implements CommandLineRunner{
 	private SequenceService sequenceService;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
 	private UserService userService;
 	
 	@Override
     public void run(String... strings) throws Exception {
-		User u1 = new User("a", passwordEncoder.encode("b"));
-		User u2 = new User("a2", passwordEncoder.encode("b2"));
+		User u1 = new User("a", "b");
+		User u2 = new User("a2", "b2");
 		
-		User ivo = new User("ivo", passwordEncoder.encode("pivo"));
+		User ivo = new User("ivo", "pivo");
 		
 		userService.createUser(u1);
 		userService.createUser(u2);
